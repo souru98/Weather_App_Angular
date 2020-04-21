@@ -1,0 +1,119 @@
+<header>
+    <svg width="500" height="130" viewBox="0 0 500 80" preserveAspectRatio="none" style="width: 100%;">
+    <path d="M0,0 L0,40 Q250,80 500,40 L500,0 Z" fill="#38a5f5"></path>
+  </svg>
+    <div class="header-title">My <span>Weather Forcast</span></div>
+</header>
+
+<!-- body -->
+<article *ngIf="weather && weeklyWeather else loading" class="container">
+    <section class="input-group py-5  m-auto" style="position: relative;">
+        <i *ngIf="flagLocation" class="fa fa-map-marker"></i>
+        <input type="text" class="form-control px-5" value="{{currentCity}}" (keyup.enter)="getByCityName(inputValue.value)" placeholder="Enter city name" #inputValue aria-label="Recipient's username" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+            <button class="btn btn-success" type="button" (click)="getByCityName(inputValue.value)">Search</button>
+        </div>
+    </section>
+    <section class="container">
+        <article class="row py-3 text-center long-section">
+
+            <!-- main statistics  -->
+            <div class="col-6 mx-auto text-right image-container">
+                <div class="imageOriginal">
+                    <img src="http://openweathermap.org/img/wn/{{weather.weather[0].icon}}@2x.png" alt="01d.png" />
+                </div>
+                <div class="imageMirror">
+                    <img src="http://openweathermap.org/img/wn/{{weather.weather[0].icon}}@2x.png" alt="01d.png" />
+                </div>
+            </div>
+            <div class="col-6 mx-auto text-left pt-3 px-0">
+                <p class="text-capitalize m-0 desc">
+                    {{ weather.weather[0].description }}
+                </p>
+                <p class="text-capitalize m-0 date">
+                    {{weather.dt * 1000 | date: 'EEEE, MMMM dd, yyyy'}}
+                </p>
+                <h1 style="float: left;" class="text-capitalize display-4 font-weight-normal">
+                    {{ weather.main.temp | number: "1.0-0" }}&#176;
+                </h1>
+                <div class="tempFormat">
+                    <span (click)="changeFormat('metric')" [style.color]="formatTemp === 'metric' ? '#ffe69f' : '#fff'" class="">C</span>
+                    <span>|</span>
+                    <span (click)="changeFormat('imperial')" [style.color]="formatTemp === 'metric' ? '#fff' : '#ffe69f'" class="">F</span>
+                </div>
+            </div>
+        </article>
+
+
+        <article class="row">
+
+            <!-- extend statistics  with chart  -->
+            <section class="col-md-7 col-sm-12 chart">
+                <app-line-chart [city]="currentCity" [format]="formatTemp"></app-line-chart>
+            </section>
+            <section class="col-md-5 col-sm-12 pr-0 containerRightBlock">
+                <aside class="d-flex icons-section">
+                    <div class="d-flex flex-column align-items-center justify-content-center">
+                        <img width="50" src="../../assets/sunrise.png">
+                        <span>{{ weather.sys.sunrise * 1000 | date: "h:mm a" }}</span>
+                    </div>
+                    <div class="d-flex flex-column align-items-center justify-content-center second-d">
+                        <img width="50" src="../../assets/sunset.png">
+                        <span>{{ weather.sys.sunset * 1000 | date: "h:mm a" }}</span>
+                    </div>
+                    <div class="d-flex flex-column align-items-center justify-content-center third-div">
+                        <img width="40" src="https://img.icons8.com/color/80/000000/wet.png">
+                        <span>{{ weather.main.humidity }}%</span>
+                    </div>
+                </aside>
+                <aside class="d-flex weekly-head-section">
+                    <div class="row">
+                        <div class="col-8 text-capitalize weelky-title">
+                            <span>weekly Weather</span>
+                        </div>
+                        <div class="col-4 weekly-img">
+                            <img src="../../assets/weeklyIcon.png" alt="">
+                        </div>
+                    </div>
+                </aside>
+                <aside class="weekly-section">
+                    <div class="weekly-col-today">
+                        <div>
+                            <img width="35px" src="http://openweathermap.org/img/wn/{{weather.weather[0].icon}}@2x.png" alt="r01d.png">
+                            <span>Today</span>
+                        </div>
+                        <div class="min-max-temp">
+                            <div>{{ this.min }}°{{ formatTemp === 'metric' ? 'c' : 'F' }}</div>
+                            <div class="min-max-div"></div>
+                            <div>{{ this.max }}°{{ formatTemp === 'metric' ? 'c' : 'F' }}</div>
+                        </div>
+                    </div>
+                    <div class="weekly-col" *ngFor="let weather of weeklyWeather">
+                        <div>
+                            <img width="25px" src="https://www.weatherbit.io/static/img/icons/{{weather.weather.icon}}.png" alt="r01d.png"> {{ weather.valid_date | date: "E" }}, {{ weather.temp.toFixed(0) }}°{{ formatTemp === 'metric' ? 'c' : 'F' }}
+                        </div>
+                        <div class="min-max-temp">
+                            <div>{{ weather.min_temp.toFixed(0) }}°{{ formatTemp === 'metric' ? 'c' : 'F' }}</div>
+                            <div class="min-max-div"></div>
+                            <div>{{ weather.max_temp.toFixed(0) }}°{{ formatTemp === 'metric' ? 'c' : 'F' }}</div>
+                        </div>
+                    </div>
+                </aside>
+            </section>
+        </article>
+    </section>
+</article>
+<ng-template #loading>
+    <div class="container-ng-template">
+        <section class="input-group py-5  m-auto" style="position: relative;">
+            <i *ngIf="flagLocation" class="fa fa-map-marker"></i>
+            <input type="text" class="form-control px-5" value="{{currentCity}}" placeholder="Enter city name" #inputValue aria-label="Recipient's username" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-success" type="button" (click)="getByCityName(inputValue.value)">Search</button>
+            </div>
+        </section>
+
+        <div *ngIf="locationDeined" class="loader"></div>
+        <div *ngIf="locationDeined">can't read current location</div>
+    </div>
+</ng-template>
