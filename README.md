@@ -3,10 +3,6 @@
 * [weatherbit.io](https://www.weatherbit.io/api) - Current weather data, Hourly forecast
 * [OpenWeather](https://openweathermap.org/api) - Forecast API (16 day / daily)
  
-## Development 
-> live 
-`https://tobiasz18-weather-api.netlify.com/`
-
 >  locally
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
  
