@@ -28,4 +28,4 @@ To get more help on the Angular CLI use `ng help` or go check out the Angular CL
 
 ## To live
 
-https://sk-forecast.herokuapp.com/
+https://sk-weatherapp.herokuapp.com/
