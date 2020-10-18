@@ -61,7 +61,7 @@
                                                         <p style="margin-bottom: 0px; text-align: center; margin-top: 30px;">{{currentDate | date:'hh:mm, MMM dd yyyy'}}</p>
                                                     </div>
                                                     <div class="p-2">
-                                                        <h3 style="margin: 0; text-align: center;">{{this.currentData?.name}}, {{this.currentData?.sys.country}}</h3>  
+                                                        <h3 style="margin: 0; text-align: center;">{{this.currentData?.name}}, {{this.currentData?.sys.country}}</h3>
                                                     </div>
                                                     <div class="p-2">
                                                         <img class="icon" src="assets/img/{{this.currentData?.weather[0].icon}}.png">
@@ -71,10 +71,10 @@
                                                     </div>
                                                     <div class="p-2">
                                                         <p style="text-align: center; font-weight: bold; margin-top: 20px ;margin-bottom: 0;">{{this.currentData?.weather[0].main}}</p>
-                                                    </div>  
+                                                    </div>
                                                     <div class="p-2">
                                                         <p style="text-align: center; margin-top: 0;">{{this.currentData?.weather[0].description}}</p>
-                                                    </div> 
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="p-2">
@@ -132,13 +132,13 @@
                                                     </div>
                                                 </div>
                                                 <div class="p-2">
-                                                    <p style="text-align: justify; margin-top: 10px;">The next full Moon will be on Thursday afternoon, Oct. 1, 2020, appearing "opposite" the Sun (in Earth-based longitude) at 5:05 p.m. EDT. 
+                                                    <p style="text-align: justify; margin-top: 10px;">The next full Moon will be on Thursday afternoon, Oct. 1, 2020, appearing "opposite" the Sun (in Earth-based longitude) at 5:05 p.m. EDT.
                                                         The Moon will appear full for about three days around this time, from Wednesday morning through Saturday morning.
-                                                        As the full Moon closest to the autumnal equinox (the end of summer and start of fall), this is the Harvest Moon. 
-                                                        During the harvest season farmers sometimes need to work late into the night by the light of the Moon. 
-                                                        The full Moon rises an average of 50 minutes later each night, but for the few nights around the Harvest Moon, 
-                                                        the Moon seems to rise at nearly the same time: just 25 to 30 minutes later across the northern USA, and only 10 to 20 minutes later farther north in Canada and Europe. 
-                                                        The Harvest Moon is an old European name with the Oxford English Dictionary giving 1706 as the year of its first published use. 
+                                                        As the full Moon closest to the autumnal equinox (the end of summer and start of fall), this is the Harvest Moon.
+                                                        During the harvest season farmers sometimes need to work late into the night by the light of the Moon.
+                                                        The full Moon rises an average of 50 minutes later each night, but for the few nights around the Harvest Moon,
+                                                        the Moon seems to rise at nearly the same time: just 25 to 30 minutes later across the northern USA, and only 10 to 20 minutes later farther north in Canada and Europe.
+                                                        The Harvest Moon is an old European name with the Oxford English Dictionary giving 1706 as the year of its first published use.
                                                         Most years the Harvest Moon falls in September but this is one of the years it falls in October.
                                                     </p>
                                                     <br>
@@ -163,7 +163,7 @@
                                 <div class="card" id="hourly">
                                     <div class="card-body">
                                         <h2 style="text-align: center; font-weight: bold;">Hourly Forecast</h2>
-                                        <h3 style="margin-top: 10px; margin-bottom: 10px; text-align: center;">{{this.currentData?.name}}, {{this.currentData?.sys.country}}</h3>  
+                                        <h3 style="margin-top: 10px; margin-bottom: 10px; text-align: center;">{{this.currentData?.name}}, {{this.currentData?.sys.country}}</h3>
                                         <table class="table">
                                             <tbody *ngFor="let hourly of hourlyData | slice:0:8">
                                                 <tr>
@@ -190,7 +190,7 @@
                                 <div class="card" id="future">
                                     <div class="card-body">
                                         <h2 style="text-align: center; font-weight: bold;">Future's Forecast</h2>
-                                        <h3 style="margin-top: 10px; margin-bottom: 10px; text-align: center;">{{this.currentData?.name}}, {{this.currentData?.sys.country}}</h3>  
+                                        <h3 style="margin-top: 10px; margin-bottom: 10px; text-align: center;">{{this.currentData?.name}}, {{this.currentData?.sys.country}}</h3>
                                         <table class="table">
                                             <tbody *ngFor="let hourly of hourlyData | slice:8:16">
                                                 <tr>
@@ -216,9 +216,7 @@
                 </div>
             </div>
         </main>
-        <footer>
-            <p style="text-align: center;">Created By Firiontina Argan Dini Heryadi</p>
-        </footer>
+        <footer class=footer>Made with ❤️ by Sourabh Kulkarni</footer>
     </body>
 </html>
 
