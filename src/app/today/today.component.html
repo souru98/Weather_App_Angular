@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <header>
+            <div class="jumbotron-fluid" style="background-image: url(assets/img/background.jpg); background-size: 100%;">
+                <div class="container">
+                    <nav class="navbar navbar-expand-lg navbar-light">
+                        <a class="navbar-brand" href="#">
+                            <img src="assets/img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="logo">
+                            Weather Forecast
+                        </a>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                          <ul class="navbar-nav mr-auto">
+                            <li class="nav-item active">
+                              <a class="nav-link" href="#today" style="color: white;">TODAY <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="#hourly" style="color: white;">HOURLY</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#forecast" style="color: white;">FORECAST</a>
+                              </li>
+                          </ul>
+                        </div>
+                    </nav>
+                    <div class="d-flex flex-column">
+                        <div class="p-2">
+                            <h1 class="title">Weather Forecast</h1>
+                        </div>
+                        <div class="p-2">
+                            <h4 class="subtitle">Access current weather based on your location or by city</h4>
+                        </div>
+                        <div class="p-2">
+                            <div class="input-group input-group-lg text-center">
+                                <input type="text" class="form-control" placeholder="Enter city names" #userInput>
+                                <!-- <mat-autocomplete #auto="matAutocomplete">
+                                    <mat-option *ngFor="let city of cityList" [value]="city">
+                                      {{city.name}}, {{city.country}}
+                                    </mat-option>
+                                </mat-autocomplete> -->
+                                <button type="button" class="btn btn-light btn-lg" (click)="getCity(userInput.value)">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </div>
+        </header>
+        <main>
+            <div class="d-flex flex-column">
+                <div class="p-2">
+                    <div class="d-flex flex-row">
+                        <div class="flexbox">
+                            <div class="p-2">
+                                <div class="card" id="today">
+                                    <div class="card-body">
+                                        <h2 style="text-align: center; font-weight: bold;">Today's Weather</h2>
+                                        <div class="d-flex flex-column">
+                                            <div class="p-2">
+                                                <div class="d-flex flex-column">
+                                                    <div class="p-2">
+                                                        <p style="margin-bottom: 0px; text-align: center; margin-top: 30px;">{{currentDate | date:'hh:mm, MMM dd yyyy'}}</p>
+                                                    </div>
+                                                    <div class="p-2">
+                                                        <h3 style="margin: 0; text-align: center;">{{this.currentData?.name}}, {{this.currentData?.sys.country}}</h3>  
+                                                    </div>
+                                                    <div class="p-2">
+                                                        <img class="icon" src="assets/img/{{this.currentData?.weather[0].icon}}.png">
+                                                    </div>
+                                                    <div class="p-2">
+                                                        <h1 style="text-align: center; margin: 0px;">{{this.currentData?.main.temp}}°C</h1>
+                                                    </div>
+                                                    <div class="p-2">
+                                                        <p style="text-align: center; font-weight: bold; margin-top: 20px ;margin-bottom: 0;">{{this.currentData?.weather[0].main}}</p>
+                                                    </div>  
+                                                    <div class="p-2">
+                                                        <p style="text-align: center; margin-top: 0;">{{this.currentData?.weather[0].description}}</p>
+                                                    </div> 
+                                                </div>
+                                            </div>
+                                            <div class="p-2">
+                                                <div class="d-flex flex-row justify-content-center">
+                                                    <div class="p-2">
+                                                        <table class="table table-striped">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td style="font-weight: bold;">Sunrise</td>
+                                                                    <td>{{this.currentData?.sys.sunrise * 1000 | date:"HH:mm"}}</td>
+                                                                    <td style="font-weight: bold;">Sunset</td>
+                                                                    <td>{{this.currentData?.sys.sunset * 1000 | date:"HH:mm"}}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="font-weight: bold;">Maximal Temperature</td>
+                                                                    <td>{{this.currentData?.main.temp_max}}°C</td>
+                                                                    <td style="font-weight: bold;">Minimal Temperature</td>
+                                                                    <td>{{this.currentData?.main.temp_min}}°C</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="font-weight: bold;">Feels Like</td>
+                                                                    <td>{{this.currentData?.main.feels_like}}°C</td>
+                                                                    <td style="font-weight: bold;">Wind Speed</td>
+                                                                    <td>{{this.currentData?.wind.speed}} meter/sec</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="font-weight: bold;">Humidity</td>
+                                                                    <td>{{this.currentData?.main.humidity}}%</td>
+                                                                    <td style="font-weight: bold;">Pressure</td>
+                                                                    <td>{{this.currentData?.main.pressure}} hPA</td>
+                                                                </tr>
+                                                            </tbody>
+                                                          </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flexbox">
+                            <div class="p-2">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex flex-column">
+                                            <div class="p-2">
+                                                <div class="d-flex flex-row">
+                                                    <div class="p-2">
+                                                        <img src="assets/img/article.jpg" style="width: 100%; display: block; margin: auto;">
+                                                    </div>
+                                                    <div class="p-2">
+                                                        <h3 style="text-align: left; font-weight: bold; margin: 50px 0px 0px 0px;">October 2020: The Next Full Moon is the Harvest Moon</h3>
+                                                        <p style="margin: 10px 0">By Gordon Johnston</p>
+                                                    </div>
+                                                </div>
+                                                <div class="p-2">
+                                                    <p style="text-align: justify; margin-top: 10px;">The next full Moon will be on Thursday afternoon, Oct. 1, 2020, appearing "opposite" the Sun (in Earth-based longitude) at 5:05 p.m. EDT. 
+                                                        The Moon will appear full for about three days around this time, from Wednesday morning through Saturday morning.
+                                                        As the full Moon closest to the autumnal equinox (the end of summer and start of fall), this is the Harvest Moon. 
+                                                        During the harvest season farmers sometimes need to work late into the night by the light of the Moon. 
+                                                        The full Moon rises an average of 50 minutes later each night, but for the few nights around the Harvest Moon, 
+                                                        the Moon seems to rise at nearly the same time: just 25 to 30 minutes later across the northern USA, and only 10 to 20 minutes later farther north in Canada and Europe. 
+                                                        The Harvest Moon is an old European name with the Oxford English Dictionary giving 1706 as the year of its first published use. 
+                                                        Most years the Harvest Moon falls in September but this is one of the years it falls in October.
+                                                    </p>
+                                                    <br>
+                                                    <br>
+                                                    <p>
+                                                        Sources: Nasa Science Solar System Exploration
+                                                    </p>
+                                                    <a href="https://solarsystem.nasa.gov/news/1520/october-2020-the-next-full-moon-is-the-harvest-moon/">>>>Read More</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-2">
+                    <div class="d-flex flex-row">
+                        <div class="flexbox">
+                            <div class="p-2">
+                                <div class="card" id="hourly">
+                                    <div class="card-body">
+                                        <h2 style="text-align: center; font-weight: bold;">Hourly Forecast</h2>
+                                        <h3 style="margin-top: 10px; margin-bottom: 10px; text-align: center;">{{this.currentData?.name}}, {{this.currentData?.sys.country}}</h3>  
+                                        <table class="table">
+                                            <tbody *ngFor="let hourly of hourlyData | slice:0:8">
+                                                <tr>
+                                                   <td>
+                                                       <p style="margin-left: 20px; margin-bottom: 0; margin-top: 20px;">{{hourly.dt_txt | slice:0:10 | date:"MMM dd, yyyy"}}</p>
+                                                       <h2 style="margin-left: 20px; margin-top: 0;">{{hourly.dt_txt | slice:10:16}}</h2>
+                                                    </td>
+                                                    <td>
+                                                        <img class="icon" src="assets/img/{{hourly.weather[0].icon}}.png">
+                                                    </td>
+                                                   <td>
+                                                       <h1 style="text-align:right; margin-right:20px">{{hourly.main.temp}}°C</h1>
+                                                       <p style="text-align:right; margin-right:20px">{{hourly.weather[0].description}}</p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                          </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flexbox">
+                            <div class="p-2">
+                                <div class="card" id="future">
+                                    <div class="card-body">
+                                        <h2 style="text-align: center; font-weight: bold;">Future's Forecast</h2>
+                                        <h3 style="margin-top: 10px; margin-bottom: 10px; text-align: center;">{{this.currentData?.name}}, {{this.currentData?.sys.country}}</h3>  
+                                        <table class="table">
+                                            <tbody *ngFor="let hourly of hourlyData | slice:8:16">
+                                                <tr>
+                                                   <td>
+                                                       <p style="margin-left: 20px; margin-bottom: 0; margin-top: 20px;">{{hourly.dt_txt | slice:0:10 | date:"MMM dd, yyyy"}}</p>
+                                                       <h2 style="margin-left: 20px; margin-top: 0;">{{hourly.dt_txt | slice:10:16}}</h2>
+                                                    </td>
+                                                    <td>
+                                                        <img class="icon" src="assets/img/{{hourly.weather[0].icon}}.png">
+                                                    </td>
+                                                   <td>
+                                                       <h1 style="text-align:right; margin-right:20px">{{hourly.main.temp}}°C</h1>
+                                                       <p style="text-align:right; margin-right:20px">{{hourly.weather[0].description}}</p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                          </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <p style="text-align: center;">Created By Firiontina Argan Dini Heryadi</p>
+        </footer>
+    </body>
+</html>
+

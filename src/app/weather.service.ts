@@ -1,44 +1,57 @@
-import { Injectable } from "@angular/core";
-
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { HttpParams } from "@angular/common/http";
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class WeatherService {
-  keyApi = "148ab12495a9f1a901fe6056090a7487";
-  kepApi2 = "a42dd92cab5f40c49a0b67f304d63cc4";
+  url = 'http://api.openweathermap.org/data/2.5';
+  apiKey = '6750f627afa043d7eb1677a5b46002d1';
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
-  //lon=longitude, lat=latitude
-  sendGETRequestByGeoCoords(log, lat, url: string, matric) {
-    let params = new HttpParams();
-    params = params.append("lon", log);
-    params = params.append("lat", lat);
-    params = params.append("units", matric);
-    params = params.append("appid", this.keyApi);
+  getWeatherDataByLocation(lat, lon) {
+    let params = new HttpParams()
+      .set('lat', lat)
+      .set('lon', lon)
+      .set('units', 'metric')
+      .set('appId', this.apiKey);
 
-    return this.httpClient.get(url, { params: params });
+    return this.http.get(`${this.url}/weather`, { params });
   }
 
-  sendGETRequestByCityName(city: string, url: string, matric) {
-    let params = new HttpParams();
-    params = params.append("q", city);
-    params = params.append("units", matric);
-    params = params.append("appid", this.keyApi);
+  getWeatherDataByCity(city: string) {
+    let params = new HttpParams()
+      .set('q', city)
+      .set('units', 'metric')
+      .set('appId', this.apiKey);
 
-    return this.httpClient.get(url, { params: params });
+    return this.http.get(`${this.url}/weather`, { params });
   }
 
-  sendGETRequest16Days(city: string, url: string, matric) {
-    let params = new HttpParams();
-    params = params.append("city", city);
-    params = params.append("days", "6");
-    params = params.append("units", matric);
-    params = params.append("key", this.kepApi2);
+  getForecastDataByLocation(lat, lon) {
+    let params = new HttpParams()
+      .set('lat', lat)
+      .set('lon', lon)
+      .set('cnt', '16')
+      .set('units', 'metric')
+      .set('appId', this.apiKey);
 
-    return this.httpClient.get(url, { params: params });
+    return this.http.get(`${this.url}/forecast`, { params });
+  }
+
+  getForecastDataByCity(city: string) {
+    let params = new HttpParams()
+      .set('q', city)
+      .set('cnt', '16')
+      .set('units', 'metric')
+      .set('appId', this.apiKey);
+
+    return this.http.get(`${this.url}/forecast`, { params });
+  }
+
+  getCityList(): Observable<any> {
+    return this.http.get('./assets/city.list.json');
   }
 }

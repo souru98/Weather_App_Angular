@@ -1,26 +1,23 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AppComponent } from './app.component';
-import { ChartsModule } from 'ng2-charts';
-
 import { HttpClientModule } from '@angular/common/http';
-import { WeatherComponent } from './weather/weather.component';
-import { LineChartComponent } from './weather/line-chart/line-chart.component';
 
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { TodayComponent } from './today/today.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    WeatherComponent,
-    LineChartComponent
-  ],
+  declarations: [AppComponent, TodayComponent],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     HttpClientModule,
-    ChartsModule
+    BrowserAnimationsModule,
+    MatAutocompleteModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
